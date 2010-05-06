@@ -3,7 +3,7 @@
 import twitter
 import ConfigParser
 
-config_file = "lazy.cfg"
+config_file = "user.cfg"
 config = ConfigParser.RawConfigParser()
 config.read(config_file)
 api = twitter.Api(username=config.get("twitter","username"),password=config.get("twitter","password")  )
