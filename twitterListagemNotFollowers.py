@@ -8,8 +8,8 @@ config = ConfigParser.RawConfigParser()
 config.read(config_file)
 api = twitter.Api(username=config.get("twitter","username"),password=config.get("twitter","password")  )
     
-followers = set(map(lambda x : x.screen_name,api.GetFollowers()))
-friends = set(map(lambda x : x.screen_name,api.GetFriends())) 
+followers = map(lambda x : x.screen_name,api.GetFollowers())
+friends = map(lambda x : x.screen_name,api.GetFriends())
    
 print " Who I follow but not follow me"
 for user in friends:
