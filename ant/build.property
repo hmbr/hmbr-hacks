@@ -1,0 +1,8 @@
+lib.dir=lib
+src.dir=src
+cfg.dir=cfg
+classes.dir=temp
+junit.dir=test
+dist.dir = dist
+name.jar=hmbr.jar
+main-class=hmbr.MainClass

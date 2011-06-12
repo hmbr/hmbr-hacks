@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project default="pack">
+
+	<property file="build.property" />
+
+	<target name="createDirs">
+		<mkdir dir="${classes.dir}" />
+		<mkdir dir="${dist.dir}" />
+		<mkdir dir="${dist.dir}/${lib.dir}" />
+		<mkdir dir="${dist.dir}/${cfg.dir}" />
+
+	</target>
+	<path id="classpath">
+		<fileset dir="${lib.dir}" includes="**/*.jar" />
+	</path>
+
+
+
+	<target name="clean">
+		<delete dir="${classes.dir}/">
+		</delete>
+		<delete dir="${dist.dir}">
+		</delete>
+	</target>
+
+	<target name="compile" depends="createDirs">
+		<copy todir="${classes.dir}">
+			<fileset dir="${src.dir}" includes="**/*.properties" />
+			<fileset dir="${src.dir}" includes="**/*.jpg" />
+			<fileset dir="${src.dir}" includes="**/*.gif" />
+			<fileset dir="${src.dir}" includes="**/*.png" />
+		</copy>
+		<javac destdir="${classes.dir}" srcdir="${src.dir}" classpathref="classpath" />
+	</target>
+
+	<target name="pack" depends="clean,compile">
+		<copy todir="${dist.dir}/${lib.dir}">
+			<fileset dir="${lib.dir}" includes="**/*.jar" />
+		</copy>
+
+		<copy todir="${dist.dir}/${cfg.dir}">
+			<fileset dir="${cfg.dir}" includes="**/*.*" />
+		</copy>
+		<pathconvert property="libs.project" pathsep=" ">
+			<mapper>
+				<chainedmapper>
+					<flattenmapper />
+					<globmapper from="*" to="lib/*" />
+				</chainedmapper>
+			</mapper>
+
+			<path>
+				<fileset dir="${dist.dir}/${lib.dir}">
+					<include name="**/*.jar" />
+				</fileset>
+			</path>
+		</pathconvert>
+
+		<jar destfile="${dist.dir}/${name.jar}" basedir="${classes.dir}">
+
+			<manifest>
+				<attribute name="Main-Class" value="${main-class}" />
+				<attribute name="Class-Path" value="${libs.project}" />
+			</manifest>
+		</jar>
+	</target>
+
+</project>
