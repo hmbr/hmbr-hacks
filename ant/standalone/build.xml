@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project default="pack">
 
-	<property file="build.property" />
+	<property file="build.properties" />
 
 	<target name="createDirs">
 		<mkdir dir="${classes.dir}" />

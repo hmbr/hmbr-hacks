@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="project">
+	<property file="build.properties" />
+
+	<path id="classpath">
+		<fileset dir="${serverJar.dir}">
+			<include name="*.jar" />
+		</fileset>
+		<fileset dir="${webContent.dir}/WEB-INF/lib">
+			<include name="*.jar" />
+		</fileset>
+	</path>
+
+	<target name="webMods">
+		<copy todir="${webTemp.dir}">
+			<fileset dir="${webContent.dir}" />
+		</copy>
+		<delete dir="${webTemp.dir}/META-INF" />
+		<mkdir dir="${webTemp.dir}/META-INF" />
+
+		<copy todir="${webTemp.dir}/META-INF">
+			<fileset dir="${meta-inf.dir}" />
+		</copy>
+	</target>
+
+	<target name="re-create" depends="clean">
+		<mkdir dir='${build.dir}' />
+		<mkdir dir='${classes.dir}' />
+		<mkdir dir='${webTemp.dir}' />
+		<mkdir dir='${dist.dir}' />
+	</target>
+
+	<target name="clean">
+		<delete dir="${build.dir}" />
+		<delete dir="${dist.dir}" />
+	</target>
+
+	<target name="compile" depends="re-create">
+		<javac destdir="${classes.dir}" debug="true" srcdir="${src.dir}">
+			<classpath refid="classpath" />
+		</javac>
+	</target>
+
+	<target name="war" depends="compile,webMods">
+		<war destfile="${dist.dir}/${app.name}.war" webxml="${webTemp.dir}/WEB-INF/web.xml">
+			<fileset dir="${webTemp.dir}" />
+			<lib dir="${webTemp.dir}/WEB-INF/lib" />
+			<classes dir="build/classes" />
+		</war>
+	</target>
+
+</project>
+
