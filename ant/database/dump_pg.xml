@@ -1,0 +1,16 @@
+<project default="dump">
+	<property file="build.properties" />
+	<target name="dump">
+		<exec executable="${aplicativo}" >
+			<env key="PGPASSWORD" value="${password}"/>
+			<arg value="--host=${host}" />
+			<arg value="--port=${port}" />
+			<arg value="--format=${format}"/>
+			<arg value="--username=${username}" />
+			<arg value="--no-password" />
+			<arg value="--verbose" />
+			<arg value="--file=${file}" />
+			<arg value="${database}" />
+		</exec>
+	</target>
+</project>
