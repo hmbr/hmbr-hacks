@@ -1,1 +1,4 @@
 twitterListagemNotFollowers.py -> quebra galho para o Twitter 
+claro.py -> robot para download da conta em pdf do site da claro ( nao sou mais usuario, mas o script ainda pode servir para alguem )
+
+flush_memcached.py -> faz o flush do memcached

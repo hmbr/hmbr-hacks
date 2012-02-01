@@ -1,0 +1,6 @@
+.DS_Store
+*.pyc
+jquery/
+lazy.cfg
+pi.pl
+txt2yaml.pl            
